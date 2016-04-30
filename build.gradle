@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        maven {
+            url 'http://maven.ej-technologies.com/repository'
+        }
+    }
+    dependencies {
+        classpath group: 'com.install4j', name: 'install4j-gradle', version: '6.1'
+    }
+}
+apply plugin: 'java'
+apply plugin: 'install4j'
+
+defaultTasks 'build'
+
+repositories {
+    mavenLocal()
+}
+
+def extractDirectory = "${buildDir}/dist"
+
+dependencies {
+    compile('org.openthinclient:manager-runtime-standalone:2.0.0-SNAPSHOT:distribution@tar.gz')
+}
+
+/**
+ * Extracts the distribution into the extractDirectory
+ */
+task extract(type: Copy) {
+    configurations.compile.each {
+        from tarTree(it)
+    }
+    into extractDirectory
+}
+
+task installer(type: com.install4j.gradle.Install4jTask) {
+    dependsOn 'extract'
+
+    projectFile = 'openthinclient-manager.install4j'
+}
+
+build.dependsOn 'installer'
+
+

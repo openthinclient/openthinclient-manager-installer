@@ -1,0 +1,9 @@
+.idea/
+*.iws
+
+# Build Output
+build/
+
+# MacOS specific contents
+*~
+.DS_Store
