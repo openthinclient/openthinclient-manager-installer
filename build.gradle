@@ -23,6 +23,10 @@ dependencies {
     compile('org.openthinclient:manager-runtime-standalone:2.0.0-SNAPSHOT:distribution@tar.gz')
 }
 
+install4j {
+    installDir = file(install4jHomeDir)
+}
+
 /**
  * Extracts the distribution into the extractDirectory
  */
