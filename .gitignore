@@ -1,6 +1,12 @@
 .idea/
 *.iws
 
+test/*/.vagrant/
+
+test/data/java/*.exe
+test/data/installers
+
+
 # Build Output
 build/
 

@@ -8,8 +8,14 @@ buildscript {
         classpath group: 'com.install4j', name: 'install4j-gradle', version: '6.1'
     }
 }
+
+plugins {
+    id "de.undercouch.download" version "3.1.1"
+}
+
 apply plugin: 'java'
 apply plugin: 'install4j'
+
 
 defaultTasks 'build'
 
@@ -46,3 +52,21 @@ task installer(type: com.install4j.gradle.Install4jTask) {
 build.dependsOn 'installer'
 
 
+task prepareVagrantTest << {
+
+    file("test/data/java").mkdirs();
+    file("test/data/installers").mkdirs();
+
+    copy {
+        from "${buildDir}/installers"
+        into file("test/data/installers")
+    }
+
+    download {
+        header "Cookie", "oraclelicense=accept-securebackup-cookie"
+        acceptAnyCertificate true
+        src "http://download.oracle.com/otn-pub/java/jdk/8u102-b14/jre-8u102-windows-x64.exe"
+        dest file("test/data/java")
+    }
+
+}
