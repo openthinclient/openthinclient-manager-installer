@@ -49,9 +49,6 @@ task installer(type: com.install4j.gradle.Install4jTask) {
     projectFile = 'openthinclient-manager.install4j'
 }
 
-build.dependsOn 'installer'
-
-
 task prepareVagrantTest << {
 
     file("test/data/java").mkdirs();
@@ -70,3 +67,10 @@ task prepareVagrantTest << {
     }
 
 }
+
+task cleanVagrantTestData(type: Delete) {
+    delete fileTree(dir:'test/data/', excludes: ['java/*.properties'])
+}
+prepareVagrantTest.dependsOn 'installer'
+clean.dependsOn cleanVagrantTestData
+build.dependsOn 'installer'
