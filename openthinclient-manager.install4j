@@ -356,6 +356,9 @@
             <serializedBean>
               <java class="java.beans.XMLDecoder">
                 <object class="com.install4j.runtime.beans.screens.CustomizableProgressScreen">
+                  <void property="initialStatusMessage">
+                    <string>${i18n:waitForServerInitialMessage}</string>
+                  </void>
                   <void property="subTitle">
                     <string>${i18n:waitForServerSubtitle}</string>
                   </void>
@@ -386,11 +389,14 @@
                 <serializedBean>
                   <java class="java.beans.XMLDecoder">
                     <object class="com.install4j.runtime.beans.actions.net.WaitForHttpServerAction">
+                      <void property="acceptAllResponseCodes">
+                        <boolean>true</boolean>
+                      </void>
                       <void property="timeout">
                         <int>180</int>
                       </void>
                       <void property="url">
-                        <string>http://localhost:8080/info</string>
+                        <string>http://localhost:8080/</string>
                       </void>
                     </object>
                   </java>
