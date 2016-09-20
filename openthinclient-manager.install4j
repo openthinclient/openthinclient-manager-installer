@@ -137,7 +137,10 @@
           </java>
         </serializedBean>
         <launcherIds />
-        <variables />
+        <variables>
+          <variable name="service.start" value="true" description="" category="" valueClass="boolean" registerForResponseFile="true" responseFileComment="The following variable defines, whether or not the service shall be started during the installation." hidden="false" />
+          <variable name="manager.home" value="" description="" category="" valueClass="string" registerForResponseFile="true" responseFileComment="The working directory of the openthinclient manager" hidden="false" />
+        </variables>
         <startup>
           <screen name="" id="1" customizedId="" beanClass="com.install4j.runtime.beans.screens.StartupScreen" enabled="true" commentSet="false" comment="" actionElevationType="inherit" rollbackBarrier="false" backButton="2" finishScreen="false" wizardIndexChangeType="unchanged" wizardIndexKey="">
             <serializedBean>
@@ -398,7 +401,7 @@
                 </object>
               </java>
             </serializedBean>
-            <condition />
+            <condition>context.getBooleanVariable("service.start")</condition>
             <validation />
             <preActivation />
             <postActivation />
@@ -413,7 +416,7 @@
                     </object>
                   </java>
                 </serializedBean>
-                <condition />
+                <condition>context.getBooleanVariable("service.start")</condition>
               </action>
               <action name="" id="228" customizedId="" beanClass="com.install4j.runtime.beans.actions.net.WaitForHttpServerAction" enabled="true" commentSet="false" comment="" actionElevationType="inherit" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="${i18n:waitForServerError}">
                 <serializedBean>
@@ -431,7 +434,7 @@
                     </object>
                   </java>
                 </serializedBean>
-                <condition />
+                <condition>context.getBooleanVariable("service.start")</condition>
               </action>
             </actions>
             <formComponents />
