@@ -10,6 +10,10 @@ test/data/installers
 # Build Output
 build/
 
+#Grade work directory
+.gradle/
+
 # MacOS specific contents
 *~
 .DS_Store
+
