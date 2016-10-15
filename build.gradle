@@ -67,14 +67,8 @@ task extract << {
 }
 extract.dependsOn "prepareMetadata"
 
-task preInstaller << {
-    assert managerDistDirectory.exists()
-    assert extractDirectory.list() == null || extractDirectory.list().length == 0
-
-}
-
 task installer(type: Install4jTask) {
-    dependsOn 'preInstaller'
+    dependsOn 'extract'
     projectFile = 'openthinclient-manager.install4j'
 
     variables = ['manager.version': { distributionDetails.version } ]
