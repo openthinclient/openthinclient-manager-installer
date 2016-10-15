@@ -1,3 +1,6 @@
+import com.install4j.gradle.Install4jTask
+import groovy.transform.ToString
+
 buildscript {
     repositories {
         maven {
@@ -13,40 +16,68 @@ plugins {
     id "de.undercouch.download" version "3.1.1"
 }
 
-apply plugin: 'java'
 apply plugin: 'install4j'
+defaultTasks 'installer'
 
 
-defaultTasks 'build'
+def managerDistDirectory = file("zip")
+def extractDirectory = file("${buildDir}/dist")
 
-repositories {
-    mavenLocal()
+
+// this will hold the detail information about the distribution we're looking at.
+@ToString(includeFields = true, includeNames = true)
+class DistributionDetails{
+    File distribution
+    String version
 }
-
-def extractDirectory = "${buildDir}/dist"
-
-dependencies {
-    compile('org.openthinclient:manager-runtime-standalone:2.0.0-SNAPSHOT:distribution@tar.gz')
-}
+DistributionDetails distributionDetails
 
 install4j {
     installDir = file(install4jHomeDir)
 }
 
-/**
- * Extracts the distribution into the extractDirectory
- */
-task extract(type: Copy) {
-    configurations.compile.each {
-        from tarTree(it)
-    }
-    into extractDirectory
+task prepareMetadata << {
+    def distributionZip =
+            fileTree(dir: managerDistDirectory, include: "manager-runtime-standalone-*.zip").singleFile
+
+    def definingJar = zipTree(distributionZip).matching {
+        it.include "**/manager-runtime-standalone*.jar"
+    }.singleFile
+
+    def mavenProperties = zipTree(definingJar).matching {
+        it.include "META-INF/maven/**/manager-runtime-standalone/pom.properties"
+    }.singleFile
+
+    def props = new Properties()
+    props.load(mavenProperties.newReader());
+    distributionDetails = new DistributionDetails(distribution: distributionZip, version: props["version"])
+
+    println "===================================================================="
+    println "== Dist: " + distributionDetails.distribution
+    println "== Version: " + distributionDetails.version
+    println "===================================================================="
+
 }
 
-task installer(type: com.install4j.gradle.Install4jTask) {
-    dependsOn 'extract'
+task extract << {
+    copy {
+        from zipTree { distributionDetails.distribution }
+        into extractDirectory
+    }
+}
+extract.dependsOn "prepareMetadata"
 
+task preInstaller << {
+    assert managerDistDirectory.exists()
+    assert extractDirectory.list() == null || extractDirectory.list().length == 0
+
+}
+
+task installer(type: Install4jTask) {
+    dependsOn 'preInstaller'
     projectFile = 'openthinclient-manager.install4j'
+
+    variables = ['manager.version': { distributionDetails.version } ]
 }
 
 task prepareVagrantTest << {
@@ -68,9 +99,18 @@ task prepareVagrantTest << {
 
 }
 
-task cleanVagrantTestData(type: Delete) {
-    delete fileTree(dir:'test/data/', excludes: ['java/*.properties'])
+task cleanManagerDistribution(type: Delete) {
+    delete fileTree(dir: managerDistDirectory)
+    delete fileTree(dir: extractDirectory)
 }
+
+task cleanVagrantTestData(type: Delete) {
+    delete fileTree(dir: 'test/data/', excludes: ['java/*.properties'])
+}
+
+task clean << {}
+
+clean.dependsOn "cleanManagerDistribution"
+clean.dependsOn "cleanVagrantTestData"
+preInstaller.dependsOn "extract"
 prepareVagrantTest.dependsOn 'installer'
-clean.dependsOn cleanVagrantTestData
-build.dependsOn 'installer'
