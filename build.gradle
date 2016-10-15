@@ -106,5 +106,4 @@ task clean << {}
 
 clean.dependsOn "cleanManagerDistribution"
 clean.dependsOn "cleanVagrantTestData"
-preInstaller.dependsOn "extract"
 prepareVagrantTest.dependsOn 'installer'
