@@ -23,13 +23,13 @@ defaultTasks 'installer'
 def managerDistDirectory = file("zip")
 def extractDirectory = file("${buildDir}/dist")
 
-
 // this will hold the detail information about the distribution we're looking at.
 @ToString(includeFields = true, includeNames = true)
-class DistributionDetails{
+class DistributionDetails {
     File distribution
     String version
 }
+
 DistributionDetails distributionDetails
 
 install4j {
@@ -68,10 +68,13 @@ task extract << {
 extract.dependsOn "prepareMetadata"
 
 task installer(type: Install4jTask) {
+
+    doFirst {
+        variables = ['manager.version': distributionDetails.version]
+    }
+
     dependsOn 'extract'
     projectFile = 'openthinclient-manager.install4j'
-
-    variables = ['manager.version': { distributionDetails.version } ]
 }
 
 task prepareVagrantTest << {
