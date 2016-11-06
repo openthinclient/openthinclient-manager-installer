@@ -95,7 +95,7 @@
     </launcher>
   </launchers>
   <installerGui installerType="1" addOnAppId="" suggestPreviousLocations="true" autoUpdateDescriptorUrl="" useAutoUpdateBaseUrl="false" autoUpdateBaseUrl="">
-    <staticMembers script="" />
+    <staticMembers script="static String bytesAsGB(long bytes) {&#xA;    return bytes/1024/1024/1024 + &quot; GB&quot;;&#xA;}&#xA;&#xA;static String bytesAsMB(long bytes) {&#xA;    return bytes/1024/1024 + &quot; MB&quot;;&#xA;}" />
     <customCode />
     <autoUpdate useMinUpdatableVersion="false" minUpdatableVersion="" useMaxUpdatableVersion="false" maxUpdatableVersion="">
       <commentFiles />
@@ -229,6 +229,24 @@
                   </void>
                   <void property="title">
                     <string>${i18n:selectHomeDirectoryTitle}</string>
+                  </void>
+                  <void property="validationScript">
+                    <object class="com.install4j.api.beans.ScriptProperty">
+                      <void property="value">
+                        <string>
+long freeDiskSpace = SystemInfo.getFreeDiskSpace(file);
+
+// 6GB are required on the data disk
+final long requiredDiskSpace = 6L * 1024L * 1024L * 1024L;
+
+if (freeDiskSpace &lt; requiredDiskSpace) {
+    Util.showErrorMessage(context.getMessage("selectHomeDirectoryNotEnoughSpace"));
+    return false;
+}
+
+return true;</string>
+                      </void>
+                    </object>
                   </void>
                   <void property="variableName">
                     <string>manager.home</string>
