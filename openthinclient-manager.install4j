@@ -94,7 +94,7 @@
       <iconImageFiles />
     </launcher>
   </launchers>
-  <installerGui installerType="1" addOnAppId="" suggestPreviousLocations="true" autoUpdateDescriptorUrl="" useAutoUpdateBaseUrl="false" autoUpdateBaseUrl="">
+  <installerGui installerType="1" addOnAppId="" suggestPreviousLocations="true" autoUpdateDescriptorUrl="http://archive.openthinclient.org/openthinclient/installer/updates.xml" useAutoUpdateBaseUrl="true" autoUpdateBaseUrl="${compiler:manager.version}">
     <staticMembers script="static String bytesAsGB(long bytes) {&#xA;    return bytes/1024/1024/1024 + &quot; GB&quot;;&#xA;}&#xA;&#xA;static String bytesAsMB(long bytes) {&#xA;    return bytes/1024/1024 + &quot; MB&quot;;&#xA;}" />
     <customCode />
     <autoUpdate useMinUpdatableVersion="false" minUpdatableVersion="" useMaxUpdatableVersion="false" maxUpdatableVersion="">
