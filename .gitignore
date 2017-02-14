@@ -6,6 +6,8 @@ test/*/.vagrant/
 test/data/java/*.exe
 test/data/installers
 
+# Build Input
+# zip/
 
 # Build Output
 build/
