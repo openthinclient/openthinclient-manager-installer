@@ -473,9 +473,9 @@ return true;</string>
                     <object class="com.install4j.runtime.beans.formcomponents.MultilineHtmlLabelComponent">
                       <void property="labelHtml">
                         <string>&lt;html&gt;
-Open the Managment Console at&lt;br/&gt;
-&lt;code&gt;&lt;a href="http://localhost:8080/"&gt;http://localhost:8080/&lt;/a&gt;&lt;/code&gt;
-&lt;/html&gt;</string>
+                        Open the Managment Console at&lt;br/&gt;
+                        &lt;code&gt;http://localhost:8080/&lt;/code&gt;
+                        &lt;/html&gt;</string>
                       </void>
                     </object>
                   </java>
@@ -1646,6 +1646,12 @@ return true;</string>
               </void>
               <void property="executableName">
                 <string>updater-without-version-check</string>
+              </void>
+              <void property="executionMode">
+                <object class="java.lang.Enum" method="valueOf">
+                  <class>com.install4j.runtime.beans.applications.ExecutionMode</class>
+                  <string>UNATTENDED</string>
+                </object>
               </void>
               <void property="useCustomIcon">
                 <boolean>true</boolean>
