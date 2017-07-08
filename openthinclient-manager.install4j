@@ -302,6 +302,18 @@ return true;</string>
             <preActivation />
             <postActivation />
             <actions>
+              <action name="" id="645" customizedId="" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
+                <serializedBean>
+                  <java class="java.beans.XMLDecoder">
+                    <object class="com.install4j.runtime.beans.actions.services.StopServiceAction">
+                      <void property="launcherId">
+                        <string>66</string>
+                      </void>
+                    </object>
+                  </java>
+                </serializedBean>
+                <condition />
+              </action>
               <action name="" id="545" customizedId="" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" enabled="true" commentSet="false" comment="" actionElevationType="none" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
                 <serializedBean>
                   <java class="java.beans.XMLDecoder">
