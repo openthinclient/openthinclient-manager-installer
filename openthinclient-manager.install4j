@@ -1300,7 +1300,11 @@ wizardContext.setCancelButtonVisible(false);</preActivation>
                       <action name="" id="643" customizedId="" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" enabled="true" commentSet="false" comment="" actionElevationType="none" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
                         <serializedBean>
                           <java class="java.beans.XMLDecoder">
-                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction" />
+                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction">
+                              <void property="uninstallServices">
+                                <boolean>false</boolean>
+                              </void>
+                            </object>
                           </java>
                         </serializedBean>
                         <condition />
@@ -1504,7 +1508,11 @@ if (context.isUnattended()) {
                       <action name="" id="644" customizedId="" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" enabled="true" commentSet="false" comment="" actionElevationType="none" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
                         <serializedBean>
                           <java class="java.beans.XMLDecoder">
-                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction" />
+                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction">
+                              <void property="uninstallServices">
+                                <boolean>false</boolean>
+                              </void>
+                            </object>
                           </java>
                         </serializedBean>
                         <condition />
