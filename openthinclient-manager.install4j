@@ -19,7 +19,7 @@
     <mergedProjects />
     <codeSigning macEnabled="false" macPkcs12File="" windowsEnabled="false" windowsKeySource="pkcs12" windowsPvkFile="" windowsSpcFile="" windowsPkcs12File="" />
   </application>
-  <files keepModificationTimes="false" missingFilesStrategy="warn" globalExcludeSuffixes="" defaultOverwriteMode="4" defaultUninstallMode="0" launcherOverwriteMode="3" defaultFileMode="644" defaultDirMode="755">
+  <files keepModificationTimes="false" missingFilesStrategy="warn" globalExcludeSuffixes="" defaultOverwriteMode="1" defaultUninstallMode="0" launcherOverwriteMode="3" defaultFileMode="644" defaultDirMode="755">
     <filesets />
     <roots />
     <mountPoints>
@@ -308,7 +308,7 @@ return true;</string>
                     <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction" />
                   </java>
                 </serializedBean>
-                <condition>context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
+                <condition>context.isUnattended() || context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
               </action>
               <action name="" id="9" customizedId="" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="2" errorMessage="${i18n:FileCorrupted}">
                 <serializedBean>
@@ -463,7 +463,7 @@ return true;</string>
                   </java>
                 </serializedBean>
                 <initScript />
-                <visibilityScript>java.awt.Desktop.getDesktop().isSupported(java.awt.Desktop.Action.BROWSE)</visibilityScript>
+                <visibilityScript>!java.awt.GraphicsEnvironment.isHeadless() &amp;&amp; java.awt.Desktop.getDesktop().isSupported(java.awt.Desktop.Action.BROWSE)</visibilityScript>
               </formComponent>
               <formComponent name="" id="427" customizedId="" beanClass="com.install4j.runtime.beans.formcomponents.MultilineHtmlLabelComponent" enabled="true" commentSet="false" comment="" insetTop="" insetLeft="" insetBottom="" insetRight="" resetInitOnPrevious="false">
                 <serializedBean>
@@ -479,7 +479,7 @@ return true;</string>
                   </java>
                 </serializedBean>
                 <initScript />
-                <visibilityScript>!java.awt.Desktop.getDesktop().isSupported(java.awt.Desktop.Action.BROWSE)</visibilityScript>
+                <visibilityScript>!java.awt.GraphicsEnvironment.isHeadless() &amp;&amp; !java.awt.Desktop.getDesktop().isSupported(java.awt.Desktop.Action.BROWSE)</visibilityScript>
               </formComponent>
             </formComponents>
           </screen>
@@ -1297,18 +1297,6 @@ wizardContext.setCancelButtonVisible(false);</preActivation>
                     <preActivation />
                     <postActivation />
                     <actions>
-                      <action name="" id="643" customizedId="" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" enabled="true" commentSet="false" comment="" actionElevationType="none" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
-                        <serializedBean>
-                          <java class="java.beans.XMLDecoder">
-                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction">
-                              <void property="uninstallServices">
-                                <boolean>false</boolean>
-                              </void>
-                            </object>
-                          </java>
-                        </serializedBean>
-                        <condition />
-                      </action>
                       <group name="Execute installer" id="498" customizedId="" beanClass="com.install4j.runtime.beans.groups.ActionGroup" enabled="true" commentSet="false" comment="" actionElevationType="inherit">
                         <serializedBean>
                           <java class="java.beans.XMLDecoder">
@@ -1505,18 +1493,6 @@ if (context.isUnattended()) {
                     <preActivation />
                     <postActivation />
                     <actions>
-                      <action name="" id="644" customizedId="" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" enabled="true" commentSet="false" comment="" actionElevationType="none" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
-                        <serializedBean>
-                          <java class="java.beans.XMLDecoder">
-                            <object class="com.install4j.runtime.beans.actions.UninstallPreviousAction">
-                              <void property="uninstallServices">
-                                <boolean>false</boolean>
-                              </void>
-                            </object>
-                          </java>
-                        </serializedBean>
-                        <condition />
-                      </action>
                       <group name="Execute installer" id="508" customizedId="" beanClass="com.install4j.runtime.beans.groups.ActionGroup" enabled="true" commentSet="false" comment="" actionElevationType="inherit">
                         <serializedBean>
                           <java class="java.beans.XMLDecoder">
