@@ -333,6 +333,31 @@ return true;</string>
                 </serializedBean>
                 <condition>context.isUnattended() || context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
               </action>
+              <action name="Empty ./lib" id="744" customizedId="" beanClass="com.install4j.runtime.beans.actions.control.RunScriptAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
+                <serializedBean>
+                  <java class="java.beans.XMLDecoder">
+                    <object class="com.install4j.runtime.beans.actions.control.RunScriptAction">
+                      <void property="script">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <void property="value">
+                            <string>com.install4j.runtime.installer.helper.fileinst.FileInstaller fileInstaller = com.install4j.runtime.installer.helper.fileinst.FileInstaller.getInstance();
+File libDir = new File(context.getInstallationDirectory(), "/lib");
+if(libDir.exists()) {
+  for(File file : libDir.listFiles()) {
+      if (file.exists()) {
+          fileInstaller.deleteFile(file);
+      }
+  }
+}
+return true;</string>
+                          </void>
+                        </object>
+                      </void>
+                    </object>
+                  </java>
+                </serializedBean>
+                <condition />
+              </action>
               <action name="" id="9" customizedId="" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="2" errorMessage="${i18n:FileCorrupted}">
                 <serializedBean>
                   <java class="java.beans.XMLDecoder">
