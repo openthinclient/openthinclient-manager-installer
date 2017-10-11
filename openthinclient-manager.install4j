@@ -55,10 +55,8 @@
       <vmOptionsFile mode="template" overwriteMode="0" fileMode="644">
         <content />
       </vmOptionsFile>
-      <customScript mode="3" file="">
-        <content>echo "[Unit]\nDocumentation=man:systemd-sysv-generator(8)\nSourcePath=/etc/init.d/openthinclient-manager\nDescription=LSB: openthinclient-manager\nBefore=multi-user.target\nBefore=multi-user.target\nBefore=multi-user.target\nBefore=graphical.target\nBefore=shutdown.target\nConflicts=shutdown.target\n\n[Service]\nType=forking\nRestart=no\nTimeoutSec=5min\nIgnoreSIGPIPE=no\nKillMode=process\nGuessMainPID=no\nRemainAfterExit=yes\nExecStart=/etc/init.d/openthinclient-manager start\nExecStop=/etc/init.d/openthinclient-manager stop" &gt; /etc/systemd/system/openthinclient-manager.service
-
-systemctl enable openthinclient-manager.service</content>
+      <customScript mode="1" file="">
+        <content />
       </customScript>
       <infoPlist mode="1" file="">
         <content />
