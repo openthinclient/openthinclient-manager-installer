@@ -210,9 +210,12 @@ systemctl enable openthinclient-manager.service</content>
                   <java class="java.beans.XMLDecoder">
                     <object class="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction">
                       <void property="excludedVariables">
-                        <array class="java.lang.String" length="1">
+                        <array class="java.lang.String" length="2">
                           <void index="0">
                             <string>sys.installationDir</string>
+                          </void>
+                          <void index="1">
+                            <string>service.start</string>
                           </void>
                         </array>
                       </void>
