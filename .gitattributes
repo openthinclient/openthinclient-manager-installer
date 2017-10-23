@@ -1,3 +1,5 @@
 
 *.bat text eol=crlf
 *.sh eol=lf
+
+*.install4j eol=lf

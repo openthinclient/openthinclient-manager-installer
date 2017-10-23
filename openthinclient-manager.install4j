@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="6.1.4" transformSequenceNumber="5">
+<install4j version="6.1.6" transformSequenceNumber="5">
   <directoryPresets config="./i18n" />
   <application name="openthinclient.org manager" distributionSourceDir="" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" mediaFilePattern="${compiler:sys.shortName}_${compiler:sys.platform}_${compiler:sys.version}" compression="6" lzmaCompression="true" pack200Compression="false" excludeSignedFromPacking="true" commonExternalFiles="false" createMd5Sums="true" shrinkRuntime="true" shortName="otc-manager" publisher="openthinclient gmbh" publisherWeb="http://www.openthinclient.org" version="${compiler:manager.version}" allPathsRelative="true" backupOnSave="false" autoSave="false" convertDotsToUnderscores="true" macSignature="????" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="" allowBetaVM="false" jdkMode="jdk" jdkName="JDK 1.8">
     <languages skipLanguageSelection="false" languageSelectionInPrincipalLanguage="false">
@@ -48,7 +48,9 @@
           <scanDirectory location="lib" failOnError="false" />
         </classPath>
         <nativeLibraryDirectories />
-        <vmOptions />
+        <vmOptions>
+          <options version="9" line="--add-modules java.xml.bind" />
+        </vmOptions>
       </java>
       <includedFiles />
       <unextractableFiles />
@@ -78,7 +80,9 @@
           <scanDirectory location="lib" failOnError="false" />
         </classPath>
         <nativeLibraryDirectories />
-        <vmOptions />
+        <vmOptions>
+          <options version="9" line="--add-modules java.xml.bind" />
+        </vmOptions>
       </java>
       <includedFiles />
       <unextractableFiles />
