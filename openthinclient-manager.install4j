@@ -120,6 +120,9 @@
               <void property="useCustomIcon">
                 <boolean>true</boolean>
               </void>
+              <void property="vmParameters">
+                <string>-Dinstall4j.keepLog=true</string>
+              </void>
             </object>
           </java>
         </serializedBean>
