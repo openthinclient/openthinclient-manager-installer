@@ -443,6 +443,36 @@ return true;</string>
                 </serializedBean>
                 <condition />
               </action>
+              <action name="Create Manager Home Directory" id="842" customizedId="" beanClass="com.install4j.runtime.beans.actions.control.RunScriptAction" enabled="true" commentSet="false" comment="" actionElevationType="inherit" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
+                <serializedBean>
+                  <java class="java.beans.XMLDecoder">
+                    <object class="com.install4j.runtime.beans.actions.control.RunScriptAction">
+                      <void property="script">
+                        <object class="com.install4j.api.beans.ScriptProperty">
+                          <void property="value">
+                            <string>
+try {
+    String managerHomePath = (String)context.getVariable("manager.home");
+    
+    File managerHome = new File(managerHomePath);
+    
+    managerHome.mkdirs();
+} catch (Exception e) {
+    Util.showMessage("Creation of the manager home directory failed");
+    Util.dumpVariables(context);
+    Util.printAnnotatedStackTrace(e);
+}
+
+
+return true;</string>
+                          </void>
+                        </object>
+                      </void>
+                    </object>
+                  </java>
+                </serializedBean>
+                <condition />
+              </action>
             </actions>
             <formComponents />
           </screen>
@@ -467,7 +497,7 @@ return true;</string>
             <preActivation />
             <postActivation />
             <actions>
-              <action name="" id="116" customizedId="" beanClass="com.install4j.runtime.beans.actions.services.StartServiceAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="1" errorMessage="">
+              <action name="" id="116" customizedId="" beanClass="com.install4j.runtime.beans.actions.services.StartServiceAction" enabled="true" commentSet="false" comment="" actionElevationType="elevated" rollbackBarrier="false" multiExec="false" failureStrategy="4" errorMessage="${i18n:startServerError}">
                 <serializedBean>
                   <java class="java.beans.XMLDecoder">
                     <object class="com.install4j.runtime.beans.actions.services.StartServiceAction">
