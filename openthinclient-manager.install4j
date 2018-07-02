@@ -66,7 +66,7 @@
       </infoPlist>
       <iconImageFiles />
     </launcher>
-    <launcher name="managerctl" id="370" customizedId="" external="false" excludeFromMenu="false" unixMode="755" unixAutoStart="true" menuName="openthinclient/managerctl" icnsFile="" customMacBundleIdentifier="false" macBundleIdentifier="" swtApp="false" fileset="" macBundleBinary="JavaApplicationStub" addMacEntitlements="false" macEntitlementsFile="" useCustomMacosExecutableName="false" customMacosExecutableName="" useJavaMinVersionOverride="false" javaMinVersionOverride="" useJavaMaxVersionOverride="false" javaMaxVersionOverride="" checkUpdater="false" updateExecutionMode="unattendedProgress" unattendedUpdateTitle="${i18n:updater.WindowTitle(&quot;${compiler:sys.fullName}&quot;)}">
+    <launcher name="managerctl" id="370" customizedId="" external="false" excludeFromMenu="true" unixMode="755" unixAutoStart="true" menuName="" icnsFile="" customMacBundleIdentifier="false" macBundleIdentifier="" swtApp="false" fileset="" macBundleBinary="JavaApplicationStub" addMacEntitlements="false" macEntitlementsFile="" useCustomMacosExecutableName="false" customMacosExecutableName="" useJavaMinVersionOverride="false" javaMinVersionOverride="" useJavaMaxVersionOverride="false" javaMaxVersionOverride="" checkUpdater="false" updateExecutionMode="unattendedProgress" unattendedUpdateTitle="${i18n:updater.WindowTitle(&quot;${compiler:sys.fullName}&quot;)}">
       <executable name="managerctl" type="1" iconSet="false" iconFile="" executableDir="bin" redirectStderr="false" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="2" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false">
         <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" />
       </executable>
@@ -562,8 +562,8 @@ return true;</string>
                 <serializedBean>
                   <java class="java.beans.XMLDecoder">
                     <object class="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" id="CreateProgramGroupAction0">
-                      <void property="addUninstaller">
-                        <boolean>true</boolean>
+                      <void property="addDefaultLauncherLinks">
+                        <boolean>false</boolean>
                       </void>
                       <void property="programGroupEntryConfigs">
                         <void method="add">
@@ -574,13 +574,46 @@ return true;</string>
                               </object>
                             </void>
                             <void property="name">
-                              <string>openthinclient/openthinclient.org Management Console</string>
+                              <string>openthinclient Management Console</string>
                             </void>
                             <void property="url">
                               <string>http://localhost:8080</string>
                             </void>
                           </object>
                         </void>
+                        <void method="add">
+                          <object class="com.install4j.runtime.beans.screens.components.ProgramGroupUrlConfig">
+                            <void property="iconFile">
+                              <object class="com.install4j.api.beans.ExternalFile">
+                                <string>./ico/openthinclient_manager.ico</string>
+                              </object>
+                            </void>
+                            <void property="name">
+                              <string>openthinclient Wiki</string>
+                            </void>
+                            <void property="url">
+                              <string>https://wiki.openthinclient.org</string>
+                            </void>
+                          </object>
+                        </void>
+                        <void method="add">
+                          <object class="com.install4j.runtime.beans.screens.components.ProgramGroupUrlConfig">
+                            <void property="iconFile">
+                              <object class="com.install4j.api.beans.ExternalFile">
+                                <string>./ico/openthinclient_manager.ico</string>
+                              </object>
+                            </void>
+                            <void property="name">
+                              <string>openthinclient Professional Support</string>
+                            </void>
+                            <void property="url">
+                              <string>http://openthinclient.com</string>
+                            </void>
+                          </object>
+                        </void>
+                      </void>
+                      <void property="programGroupName">
+                        <string>openthinclient</string>
                       </void>
                       <void property="uninstallerMenuName">
                         <string>${i18n:UninstallerMenuEntry(${compiler:sys.fullName})}</string>
@@ -609,7 +642,7 @@ return true;</string>
                         <boolean>true</boolean>
                       </void>
                       <void property="windowsDisplayName">
-                        <string>openthinclient.org Manager</string>
+                        <string>openthinclient Manager</string>
                       </void>
                     </object>
                   </java>
