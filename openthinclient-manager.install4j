@@ -392,15 +392,17 @@ return console.askOkCancel(message, true);
                       <void property="validationScript">
                         <object class="com.install4j.api.beans.ScriptProperty">
                           <void property="value">
-                            <string>
-long freeDiskSpace = SystemInfo.getFreeDiskSpace(file);
+                            <string>File flagFile = new File(file, ".otc-manager-home.meta");
+if(!flagFile.exists()) {
+    long freeDiskSpace = SystemInfo.getFreeDiskSpace(file);
 
-// 6GB are required on the data disk
-final long requiredDiskSpace = 6L * 1024L * 1024L * 1024L;
+    // 6GB are required on the data disk
+    final long requiredDiskSpace = 6L * 1024L * 1024L * 1024L;
 
-if (freeDiskSpace &lt; requiredDiskSpace) {
-    Util.showErrorMessage(context.getMessage("selectHomeDirectoryNotEnoughSpace"));
-    return false;
+    if (freeDiskSpace &lt; requiredDiskSpace) {
+        Util.showErrorMessage(context.getMessage("selectHomeDirectoryNotEnoughSpace"));
+        return false;
+    }
 }
 
 return true;</string>
