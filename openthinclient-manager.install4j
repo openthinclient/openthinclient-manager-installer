@@ -76,7 +76,7 @@
           <versionLine x="20" y="40" text="version ${compiler:sys.version}" fontSize="8" fontColor="0,0,0" bold="false" />
         </text>
       </splashScreen>
-      <java mainClass="org.openthinclient.runtime.control.ManagerControlApplication" mainMode="1" vmParameters="-Dlogging.level.=INFO" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true">
+      <java mainClass="org.openthinclient.runtime.control.ManagerControlApplication" mainMode="1" vmParameters="-Dlogging.level.=INFO -Dmanager.home=${installer:manager.home}" arguments="" allowVMPassthroughParameters="true" preferredVM="" bundleRuntime="true">
         <classPath>
           <scanDirectory location="lib" failOnError="false" />
         </classPath>
