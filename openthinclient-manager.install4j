@@ -11,6 +11,7 @@
     <variables>
       <variable name="manager.version" />
     </variables>
+    <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk11/jdk-11.0.5+10" />
   </application>
   <files defaultOverwriteMode="1">
     <mountPoints>
@@ -1223,6 +1224,12 @@ if (context.isUnattended()) {
     <unixInstaller name="Unix Installer" id="59" />
     <windows name="Windows" id="60" />
     <windows name="Windows 32bit" id="369" jreBitType="32" />
+    <unixInstaller name="Linux JRE" id="1000" mediaFileName="${compiler:sys.shortName}_${compiler:sys.platform}_${compiler:sys.version}_with_JRE">
+      <jreBundle release="openjdk11/jdk-11.0.5+10_openj9-0.17.0" jreBundleSource="generated" manualJreEntry="true" />
+    </unixInstaller>
+    <windows name="Windows JRE" id="1182" mediaFileName="${compiler:sys.shortName}_${compiler:sys.platform}_${compiler:sys.version}_with_JRE">
+      <jreBundle jreBundleSource="generated" />
+    </windows>
   </mediaSets>
   <buildIds buildAll="false">
     <mediaSet refId="60" />
