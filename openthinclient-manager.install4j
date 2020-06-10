@@ -241,8 +241,6 @@ return true;</property>
             <actions>
               <action id="64" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated">
                 <serializedBean>
-                  <property name="additionalSystemdEntries" type="string">[Service]
-KillMode=process</property>
                   <property name="executable">
                     <object class="java.io.File">
                       <string>bin/openthinclient-manager</string>
