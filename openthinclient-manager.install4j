@@ -279,6 +279,19 @@ return true;</property>
                 </serializedBean>
               </action>
               <action id="9" beanClass="com.install4j.runtime.beans.actions.InstallFilesAction" actionElevationType="elevated" failureStrategy="quit" errorMessage="${i18n:FileCorrupted}" />
+              <action id="1184" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated">
+                <serializedBean>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>bin/openthinclient-manager</string>
+                    </object>
+                  </property>
+                  <property name="launcherId" type="string">66</property>
+                  <property name="macosIdentifier" type="string">org.openthinclient.manager.ManagerRuntimeStandalone</property>
+                  <property name="restartOnFailure" type="boolean" value="true" />
+                  <property name="windowsDisplayName" type="string">openthinclient Manager</property>
+                </serializedBean>
+              </action>
               <action id="10" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated">
                 <serializedBean>
                   <property name="addDefaultLauncherLinks" type="boolean" value="false" />
