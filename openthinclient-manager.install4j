@@ -314,7 +314,7 @@ return true;</property>
                             <string>./ico/openthinclient_manager.ico</string>
                           </object>
                         </property>
-                        <property name="name" type="string">openthinclient Wiki</property>
+                        <property name="name" type="string">openthinclient Documentation</property>
                         <property name="url" type="string">https://wiki.openthinclient.org</property>
                       </object>
                     </add>
