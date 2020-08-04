@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <install4j version="8.0.7" transformSequenceNumber="8">
   <directoryPresets config="./i18n" />
-  <application name="${i18n:productName}" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" lzmaCompression="true" shortName="otc-manager" publisher="openthinclient gmbh" publisherWeb="http://www.openthinclient.org" version="${compiler:manager.version}" allPathsRelative="true" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="11" jdkMode="jdk" jdkName="JDK 1.8">
+  <application name="${i18n:productName}" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" lzmaCompression="true" shortName="openthinclient" publisher="openthinclient gmbh" publisherWeb="https://openthinclient.com" version="${compiler:manager.version}" allPathsRelative="true" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="11" jdkMode="jdk" jdkName="JDK 1.8">
     <languages>
       <principalLanguage id="en" customLocalizationFile="./i18n/en.properties" />
       <additionalLanguages>
@@ -289,7 +289,7 @@ return true;</property>
                   <property name="launcherId" type="string">66</property>
                   <property name="macosIdentifier" type="string">org.openthinclient.manager.ManagerRuntimeStandalone</property>
                   <property name="restartOnFailure" type="boolean" value="true" />
-                  <property name="windowsDisplayName" type="string">openthinclient Manager</property>
+                  <property name="windowsDisplayName" type="string">${i18n:productName}</property>
                 </serializedBean>
               </action>
               <action id="10" beanClass="com.install4j.runtime.beans.actions.desktop.CreateProgramGroupAction" actionElevationType="elevated">
@@ -326,7 +326,7 @@ return true;</property>
                           </object>
                         </property>
                         <property name="name" type="string">openthinclient Professional Support</property>
-                        <property name="url" type="string">http://openthinclient.com</property>
+                        <property name="url" type="string">https://openthinclient.com</property>
                       </object>
                     </add>
                   </property>
