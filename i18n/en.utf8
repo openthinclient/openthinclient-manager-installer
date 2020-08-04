@@ -1,0 +1,10 @@
+productName=openthinclient Management-Server
+selectHomeDirectoryTitle=Manager-Home
+selectHomeDirectorySubtitle=In which directory should the openthinclient Management-Server save configuration and data?
+selectHomeDirectoryDescription=Manager-Home Directory
+selectHomeDirectoryNotEnoughSpace=The selected Manager-Home directory doesn't have enough free space. At least 6GB are required.
+waitForServerTitle=openthinclient Management-Server Manager Startup
+waitForServerSubtitle=The openthinclient Management-Server is being started.
+waitForServerInitialMessage=Waiting for services...
+waitForServerError=openthinclient Management-Server startup seems to have failed.\nFor details consult the log file in the directory ${installer:manager.home}/log
+startServerError=openthinclient Management-Server startup failed.

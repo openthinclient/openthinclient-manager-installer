@@ -3,9 +3,9 @@
   <directoryPresets config="./i18n" />
   <application name="${i18n:productName}" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" lzmaCompression="true" shortName="openthinclient" publisher="openthinclient gmbh" publisherWeb="https://openthinclient.com" version="${compiler:manager.version}" allPathsRelative="true" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="11" jdkMode="jdk" jdkName="JDK 1.8">
     <languages>
-      <principalLanguage id="en" customLocalizationFile="./i18n/en.properties" />
+      <principalLanguage id="en" customLocalizationFile="./i18n/en.utf8" />
       <additionalLanguages>
-        <language id="de" customLocalizationFile="./i18n/de.properties" />
+        <language id="de" customLocalizationFile="./i18n/de.utf8" />
       </additionalLanguages>
     </languages>
     <variables>
