@@ -82,8 +82,9 @@
             <actions>
               <action id="3" beanClass="com.install4j.runtime.beans.actions.misc.LoadResponseFileAction" multiExec="true">
                 <serializedBean>
-                  <property name="excludedVariables" type="array" elementType="string" length="1">
+                  <property name="excludedVariables" type="array" elementType="string" length="2">
                     <element index="0">sys.installationDir</element>
+                    <element index="1">service.start</element>
                   </property>
                 </serializedBean>
                 <condition>context.getBooleanVariable("sys.confirmedUpdateInstallation")</condition>
