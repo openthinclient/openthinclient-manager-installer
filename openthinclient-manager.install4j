@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="8.0.7" transformSequenceNumber="8">
+<install4j version="8.0.8" transformSequenceNumber="8">
   <directoryPresets config="./i18n" />
   <application name="${i18n:productName}" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" lzmaCompression="true" shortName="openthinclient" publisher="openthinclient gmbh" publisherWeb="https://openthinclient.com" version="${compiler:manager.version}" allPathsRelative="true" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="11" jdkMode="jdk" jdkName="JDK 1.8">
     <languages>
@@ -10,6 +10,7 @@
     </languages>
     <variables>
       <variable name="manager.version" />
+      <variable name="launcher.name" value="openthinclient-manager" />
     </variables>
     <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk11/jdk-11.0.7+10" />
   </application>
@@ -23,7 +24,7 @@
   </files>
   <launchers>
     <launcher name="openthinclient-manager" id="66" excludeFromMenu="true">
-      <executable name="openthinclient-manager" executableDir="bin" redirectStderr="false" executableMode="service" singleInstance="true" executionLevel="requireAdministrator" dpiAware="false" />
+      <executable name="${compiler:launcher.name}" executableDir="bin" redirectStderr="false" executableMode="service" singleInstance="true" executionLevel="requireAdministrator" dpiAware="false" />
       <java mainClass="org.openthinclient.manager.standalone.ManagerStandaloneServerApplication" vmParameters="-Dmanager.home=${installer:manager.home} -Dlogging.file=${installer:manager.home}/logs/openthinclient-manager.log" preferredVM="server">
         <classPath>
           <scanDirectory location="lib" failOnError="false" />
@@ -240,22 +241,28 @@ return true;</property>
           </screen>
           <screen id="8" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true">
             <actions>
-              <action id="64" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated">
-                <serializedBean>
-                  <property name="executable">
-                    <object class="java.io.File">
-                      <string>bin/openthinclient-manager</string>
-                    </object>
-                  </property>
-                  <property name="launcherId" type="string">66</property>
-                  <property name="macosIdentifier" type="string">org.openthinclient.manager.ManagerRuntimeStandalone</property>
-                  <property name="restartOnFailure" type="boolean" value="true" />
-                  <property name="windowsDisplayName" type="string">openthinclient Manager</property>
-                </serializedBean>
-              </action>
               <action id="645" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" actionElevationType="elevated">
                 <serializedBean>
                   <property name="launcherId" type="string">66</property>
+                </serializedBean>
+              </action>
+              <action name="Stop service directly" id="1327" beanClass="com.install4j.runtime.beans.actions.misc.RunExecutableAction" commentSet="true" comment="Ensure that the server shuts down.&#xA;&#xA;The previous step might have failed (e.g. due to a broken / deleted service). This step explicitly calls the launcher that is used by the service.&#xA;&#xA;We still keep the previous step in order to try to disable any possible restart logic from a service." actionElevationType="elevated" rollbackBarrierExitCode="0">
+                <serializedBean>
+                  <property name="arguments" type="array" elementType="string" length="1">
+                    <element index="0">stop</element>
+                  </property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>${compiler:launcher.name}</string>
+                    </object>
+                  </property>
+                  <property name="logArguments" type="boolean" value="true" />
+                  <property name="wait" type="boolean" value="true" />
+                  <property name="workingDirectory">
+                    <object class="java.io.File">
+                      <string>${installer:sys.installationDir}/bin</string>
+                    </object>
+                  </property>
                 </serializedBean>
               </action>
               <action id="545" beanClass="com.install4j.runtime.beans.actions.UninstallPreviousAction" actionElevationType="none">
