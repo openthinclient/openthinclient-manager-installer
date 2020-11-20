@@ -271,6 +271,28 @@ return true;</property>
           </screen>
           <screen id="8" beanClass="com.install4j.runtime.beans.screens.InstallationScreen" rollbackBarrier="true">
             <actions>
+              <action name="Update service" id="1718" beanClass="com.install4j.runtime.beans.actions.services.InstallServiceAction" actionElevationType="elevated">
+                <serializedBean>
+                  <property name="autoStart" type="boolean" value="false" />
+                  <property name="description" type="string">Temporary service definition to ensure proper shutdown while updating.</property>
+                  <property name="executable">
+                    <object class="java.io.File">
+                      <string>bin/managerctl</string>
+                    </object>
+                  </property>
+                  <property name="launcherId" type="string">66</property>
+                  <property name="macosIdentifier" type="string">org.openthinclient.manager.ManagerRuntimeStandalone</property>
+                  <property name="restartOnFailure" type="boolean" value="true" />
+                  <property name="serviceName" type="string">obentinklient</property>
+                  <property name="windowsDisplayName" type="string">${i18n:productName}</property>
+                </serializedBean>
+                <condition>context.isUpdateInstallation() &amp;&amp; com.install4j.api.Util.isLinux()
+/*
+Updating service is only necessary on Linux (where previous versions of i4j
+produced a .service file that shuts down the installer when stopping the
+manager (thus preventing the update).
+*/</condition>
+              </action>
               <action id="645" beanClass="com.install4j.runtime.beans.actions.services.StopServiceAction" actionElevationType="elevated">
                 <serializedBean>
                   <property name="launcherId" type="string">66</property>
