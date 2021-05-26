@@ -14,7 +14,7 @@
       <variable name="manager.home.dirname" value="${compiler:sys.shortName}" />
       <variable name="manager.home.basepath" />
     </variables>
-    <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk11/jdk-11.0.7+10" />
+    <jreBundles jdkProviderId="AdoptOpenJDK" release="openjdk11/jdk-11.0.11+9" />
   </application>
   <files defaultOverwriteMode="1">
     <mountPoints>
