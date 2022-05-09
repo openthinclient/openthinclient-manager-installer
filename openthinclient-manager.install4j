@@ -212,8 +212,25 @@ return Paths.get(basepath, (String)context.getCompilerVariable("manager.home.dir
                   <property name="onlyWritable" type="boolean" value="true" />
                   <property name="validationScript">
                     <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">File flagFile = new File(file, ".otc-manager-home.meta");
+                      <property name="value" type="string">// Verify selected path for Manager-Home
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+Path path = file.toPath();
+
+File flagFile = new File(file, ".otc-manager-home.meta");
 if(!flagFile.exists()) {
+
+    if (path.startsWith(context.getInstallationDirectory().toString())) {
+        Util.showErrorMessage(context.getMessage("selectHomeDirectoryInInstallDirectory"));
+        return false;
+    }
+
+    if (Files.isDirectory(path) &amp;&amp; Files.list(path).findAny().isPresent()) {
+        Util.showErrorMessage(context.getMessage("selectHomeDirectoryNotEmpty"));
+        return false;
+    }
+
     long freeDiskSpace = SystemInfo.getFreeDiskSpace(file);
 
     // 6GB are required on the data disk
@@ -406,19 +423,18 @@ LimitNOFILE=infinity</property>
                 <serializedBean>
                   <property name="script">
                     <object class="com.install4j.api.beans.ScriptProperty">
-                      <property name="value" type="string">
+                      <property name="value" type="string">// Create empty Manager-Home and flag file
+
 try {
     String managerHomePath = (String)context.getVariable("manager.home");
-
     File managerHome = new File(managerHomePath);
-
     managerHome.mkdirs();
+    (new File(managerHome, ".otc-manager-home.meta")).createNewFile();
 } catch (Exception e) {
     Util.showMessage("Creation of the manager home directory failed");
     Util.dumpVariables(context);
     Util.printAnnotatedStackTrace(e);
 }
-
 
 return true;</property>
                     </object>
