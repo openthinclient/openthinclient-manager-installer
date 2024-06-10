@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<install4j version="8.0.8" transformSequenceNumber="8">
+<install4j version="8.0.11" transformSequenceNumber="8">
   <directoryPresets config="./i18n" />
   <application name="${i18n:productName}" applicationId="0362-1488-8516-0646" mediaDir="./build/installers/" lzmaCompression="true" shortName="openthinclient" publisher="openthinclient gmbh" publisherWeb="https://openthinclient.com" version="${compiler:manager.version}" allPathsRelative="true" macVolumeId="b687a6bd30377c64" javaMinVersion="1.8" javaMaxVersion="11" jdkMode="jdk" jdkName="JDK 1.8">
     <languages>
