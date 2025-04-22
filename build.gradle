@@ -1,27 +1,17 @@
 import com.install4j.gradle.Install4jTask
 import groovy.transform.ToString
 
-buildscript {
-    repositories {
-        maven {
-            url 'http://maven.ej-technologies.com/repository'
-        }
-    }
-    dependencies {
-        classpath group: 'com.install4j', name: 'install4j-gradle', version: '6.1'
-    }
-}
-
 plugins {
     id "de.undercouch.download" version "3.1.1"
+    id "com.install4j.gradle" version "8.0"
 }
 
-apply plugin: 'install4j'
 defaultTasks 'installer'
 
 
 def managerDistDirectory = file("zip")
 def extractDirectory = file("${buildDir}/dist")
+
 
 // this will hold the detail information about the distribution we're looking at.
 @ToString(includeFields = true, includeNames = true)
@@ -30,70 +20,86 @@ class DistributionDetails {
     String version
 }
 
+
 DistributionDetails distributionDetails
 
 install4j {
     installDir = file(install4jHomeDir)
 }
 
-task prepareMetadata << {
-    def distributionZip =
-            fileTree(dir: managerDistDirectory, include: "manager-runtime-standalone-*.zip").singleFile
 
-    def definingJar = zipTree(distributionZip).matching {
-        it.include "**/manager-runtime-standalone*.jar"
-    }.singleFile
+task prepareMetadata {
+    doLast {
+        def distributionZip = fileTree(dir: managerDistDirectory, include: "manager-runtime-standalone-*.zip").singleFile
 
-    def mavenProperties = zipTree(definingJar).matching {
-        it.include "META-INF/maven/**/manager-runtime-standalone/pom.properties"
-    }.singleFile
+        def definingJar = zipTree(distributionZip).matching {
+            include "**/manager-runtime-standalone*.jar"
+        }.singleFile
 
-    def props = new Properties()
-    props.load(mavenProperties.newReader());
-    distributionDetails = new DistributionDetails(distribution: distributionZip, version: props["version"])
+        def mavenProperties = zipTree(definingJar).matching {
+            include "META-INF/maven/**/manager-runtime-standalone/pom.properties"
+        }.singleFile
 
-    println "===================================================================="
-    println "== Dist: " + distributionDetails.distribution
-    println "== Version: " + distributionDetails.version
-    println "===================================================================="
+        def props = new Properties()
+        props.load(mavenProperties.newReader())
+        distributionDetails = new DistributionDetails(distribution: distributionZip, version: props["version"])
 
-}
-
-task extract << {
-    copy {
-        from zipTree { distributionDetails.distribution }
-        into extractDirectory
+        println "===================================================================="
+        println "== Dist: ${distributionDetails.distribution}"
+        println "== Version: ${distributionDetails.version}"
+        println "===================================================================="
     }
 }
+
+
+task extract {
+    dependsOn prepareMetadata
+    doLast {
+        copy {
+            from zipTree(distributionDetails.distribution)
+            into extractDirectory
+        }
+    }
+}
+
+
 extract.dependsOn "prepareMetadata"
 
-task installer(type: Install4jTask) {
+
+task installer(type: Exec) {
+    dependsOn extract
 
     doFirst {
-        variables = ['manager.version': distributionDetails.version]
-    }
+        def version = distributionDetails.version
+        def install4jProject = file('openthinclient-manager.install4j')
+        def variablesFile = file("${buildDir}/install4j-variables.txt")
+        variablesFile.text = "manager.version=${version}"
 
-    dependsOn 'extract'
-    projectFile = 'openthinclient-manager.install4j'
+        commandLine '/opt/install4j/bin/install4jc',
+                    '-f', variablesFile.absolutePath,
+                    install4jProject.absolutePath
+    }
 }
 
-task prepareVagrantTest << {
 
-    file("test/data/java").mkdirs();
-    file("test/data/installers").mkdirs();
+task prepareVagrantTest {
+    dependsOn installer
+    doLast {
+        file("test/data/java").mkdirs()
+        file("test/data/installers").mkdirs()
 
-    copy {
-        from "${buildDir}/installers"
-        into file("test/data/installers")
+        copy {
+            from "${buildDir}/installers"
+            into file("test/data/installers")
+        }
+
+        download {
+            header "Cookie", "oraclelicense=accept-securebackup-cookie"
+            acceptAnyCertificate true
+            src "http://download.oracle.com/otn-pub/java/jdk/9.0.1+11/jdk-9.0.1_windows-x64_bin.exe"
+            dest file("test/data/java")
+        }
     }
-
-    download {
-        header "Cookie", "oraclelicense=accept-securebackup-cookie"
-        acceptAnyCertificate true
-        src "http://download.oracle.com/otn-pub/java/jdk/9.0.1+11/jdk-9.0.1_windows-x64_bin.exe"
-        dest file("test/data/java")
-    }
-
 }
 
 task cleanManagerDistribution(type: Delete) {
@@ -105,7 +111,9 @@ task cleanVagrantTestData(type: Delete) {
     delete fileTree(dir: 'test/data/', excludes: ['java/*.properties'])
 }
 
-task clean << {}
+
+task clean {}
+
 
 clean.dependsOn "cleanManagerDistribution"
 clean.dependsOn "cleanVagrantTestData"
